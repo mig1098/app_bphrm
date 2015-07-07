@@ -30,9 +30,9 @@
 				
                 if(leer === 'empty'){
                 	
-					console.log('nada');
+				
                 var pathname = window.location.href; 
-							
+						console.log(pathname);		
                  if(pathname.indexOf('/myaccount.asp') > 0){ 
                      var logeo = 'congratulation';
 					
