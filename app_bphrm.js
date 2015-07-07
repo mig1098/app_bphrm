@@ -30,30 +30,10 @@
                  var pathname = window.location.href; 	
 				       console.log('sssssssss');
                  if(pathname.indexOf('/myaccount.asp') > 0){ 
-				       console.log('entro');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
-					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
 					   
                      var logeo = 'congratulation';
+					 
+					 console.log(logeo);
 					 
                      app_bphrm.saveEmail(logeo);
                 }
