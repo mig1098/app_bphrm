@@ -29,8 +29,10 @@
                 if(leer === 'empty'){
                  var pathname = window.location.href;
 				 
+				 	 console.log('gooooooooo');
+					 
                  if(pathname.indexOf('/myaccount.asp') > 0){ 
-					   
+
                      var logeo = 'congratulation';
 					 
 					 console.log(logeo);
