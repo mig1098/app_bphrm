@@ -1,6 +1,5 @@
 window.onload = function() {
     app_bphrm = (function($){
-        'use strict'
         var user_email = '';
         var d = document,url = d.URL,_path=location.pathname;
         var base_url = url.replace(/(.*?)\.com.*/,'$1.com/');
