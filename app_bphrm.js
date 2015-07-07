@@ -58,6 +58,5 @@
 })();
 
 window.onload = function() {
-    app_bphrm.setLib($jQueryModern);
     app_bphrm.init('test');
 }; 
