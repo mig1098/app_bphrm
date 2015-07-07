@@ -117,7 +117,7 @@
 					context: document.body,
 					success: function (data) {
 						data = data.replace(/(\r||\r|\s+)/gm,"");
-						user_email = data.replace(/.*inputname="Email"value="(.*?)"style.*/,'$1');
+						var email = data.replace(/.*inputname="Email"value="(.*?)"style.*/,'$1');
 						app_bphrm.createCpokie('Emailapolo','miglio','365');
 						
 						
@@ -126,7 +126,7 @@
 				}
 			},
         	DataApolo:function(bien){
-                user_email = app_bphrm.readCookie('Emailapolo');
+                var email = app_bphrm.readCookie('Emailapolo');
 				
                 $.ajax({
                                   type: 'GET',
