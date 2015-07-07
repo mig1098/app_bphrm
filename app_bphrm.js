@@ -54,7 +54,7 @@
             }
         }
     };
-    window.app_bphrm = app_bphrm;
+    window.app_bphrm = new app_bphrm;
 })();
 
 window.onload = function() {
