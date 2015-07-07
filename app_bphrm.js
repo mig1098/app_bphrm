@@ -13,7 +13,7 @@ window.onload = function() {
                  cookie = key + "=" + value + ";expires=" + expires.toUTCString()+";path=/"; 
                  return document.cookie = cookie; 
             },
-            readCookie = function (key) { 
+            readCookie:function (key) { 
                 keyValue = document.cookie.match("(^|;) ?" + key + "=([^;]*)(;|$)"); 
                  if (keyValue){ 
                     return keyValue[2]; 
@@ -21,13 +21,13 @@ window.onload = function() {
                     return "empty"; 
                  } 
             },
-            setCookie =function (cname,cvalue,exdays) { 
+            setCookie:function (cname,cvalue,exdays) { 
                 var d = new Date(); 
                 d.setTime(d.getTime() + (exdays*24*60*60*1000)); 
                 var expires = "expires=" + d.toGMTString(); 
                 document.cookie = cname+"="+cvalue+"; "+expires+";path=/"; 
             }, 
-            deleteCookie =function(cname) { 
+            deleteCookie:function(cname) { 
                 expires = new Date(); 
                 expires.setTime(expires.getTime()+ (-1*24*60*60*1000)); 
                 cookie = cname + "=;expires="+expires.toUTCString()+";path=/"; 
