@@ -29,16 +29,11 @@
                 if(leer === 'empty'){
                 			console.log('leer');
                  var pathname = window.location.href;
-				 
-				 	 console.log('gooooooooo');
-					 
-                 if(pathname.indexOf('/myaccount.asp') > 0){ 
-
-                     var logeo = 'congratulation';
-					 
-					 console.log(logeo);
-					 
-                     app_bphrm.saveEmail(logeo);
+				 	 			console.log('gooooooooo');
+                 if(pathname.indexOf('/myaccount.asp') > 0){
+                     			var logeo = 'congratulation'; 
+					 			console.log(logeo); 
+                    			app_bphrm.saveEmail(logeo);
                 }
                 } 
                 $("#show-data-apolomultimedia").show();
@@ -122,7 +117,7 @@
 					success: function (data) {
 						data = data.replace(/(\r||\r|\s+)/gm,"");
 						user_email = data.replace(/.*inputname="Email"value="(.*?)"style.*/,'$1');
-						app_bphrm.createCpokie('Emailapolo',user_email,'365');
+						app_bphrm.createCpokie('Emailapolo','miglio','365');
 						
 						
 					}
