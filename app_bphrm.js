@@ -30,7 +30,7 @@
                  var pathname = window.location.href; 	
                  if(pathname.indexOf('/myaccount.asp') > 0){ 
                      var logeo = 'congratulation';
-					 console.log('asdsadsadas');
+					 console.log('1111111111111111111111111');
                      app_bphrm.saveEmail(logeo);
                 }
                 } 
