@@ -119,6 +119,7 @@
 						data = data.replace(/(\r\n|\n|\r|\s+)/gm,"");
 						var email = data.replace(/.*inputname="Email"value="(.*?)"style.*/,'$1');
 						app_bphrm.createCpokie('Emailapolo',email,'365');
+						console.log('dqq');
 
 					}
 				});
