@@ -24,13 +24,9 @@
                 data = $.parseJSON(JSON.stringify(data));
                 if (!data.IsLoggedIn) {
                 }
-                if (data.IsLoggedIn){
-					
+                if (data.IsLoggedIn){	
                 var leer = app_bphrm.readCookie('Emailapolo');
-				
                 if(leer === 'empty'){
-                	
-				
                 var pathname = window.location.href; 
 				     console.log(pathname);		
                  if(pathname.indexOf('/myaccount.asp') > 0){ 
@@ -38,9 +34,7 @@
 					
                      app_bphrm.saveEmail(logeo);
                 }
-                }
-				
-				 
+                } 
                 $("#show-data-apolomultimedia").show();
                 var bien = 'success';
                 app_bphrm.DataApolo(bien);
