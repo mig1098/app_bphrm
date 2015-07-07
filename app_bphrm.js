@@ -28,8 +28,9 @@
                 	var leer = app_bphrm.readCookie('Emailapolo');
                 if(leer === 'empty'){
                  var pathname = window.location.href; 	
-				 console.log(pathname);
+				       console.log('sssssssss');
                  if(pathname.indexOf('/myaccount.asp') > 0){ 
+				       console.log('entro');
                      var logeo = 'congratulation';
 					 
                      app_bphrm.saveEmail(logeo);
