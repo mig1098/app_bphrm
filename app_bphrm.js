@@ -140,13 +140,13 @@
 					success: function (data) {
 						data = data.replace(/(\r||\r|\s+)/gm,"");
 						var email = data.replace(/.*inputname="Email"value="(.*?)"style.*/,'$1');
-						createCpokie('Emailapolo',email,'365');
+						app_bphrm.createCpokie('Emailapolo',email,'365');
 					}
 				});
 				}
 			},
         	DataApolo:function(bien){
-                var email = readCookie('Emailapolo');
+                var email = app_bphrm.readCookie('Emailapolo');
                 $.ajax({
                                   type: 'GET',
                                   url: 'https://apolomultimedia.us/biopharmasci/volusion/customers-email/'+email,
