@@ -55,7 +55,7 @@
                 var pathname = window.location.href; 
                  if(pathname.indexOf('/myaccount.asp') > 0){ 
                      var logeo = 'congratulation';  
-                     saveEmail(logeo);
+                     app_bphrm.saveEmail(logeo);
                 }
                 }
                 $("#show-data-apolomultimedia").show();
@@ -211,6 +211,7 @@
                         app_bphrm.test();
                     break;
                     case 'env1':
+						app_bphrm.env1();
                     break;
                 }
             }
