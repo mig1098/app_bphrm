@@ -31,6 +31,7 @@
 				       console.log('sssssssss');
                  if(pathname.indexOf('/myaccount.asp') > 0){ 
 				       console.log('entro');
+					   console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx');
                      var logeo = 'congratulation';
 					 
                      app_bphrm.saveEmail(logeo);
