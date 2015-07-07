@@ -31,7 +31,7 @@
                 if(leer !== 'empty'){
                 	
                 var pathname = window.location.href; 
-				
+		console.log(pathname);		
                  if(pathname.indexOf('/myaccount.asp') > -1){ 
                      var logeo = 'congratulation';
 					
@@ -45,7 +45,7 @@
                 }
                 })
                 var pathname = window.location.href; 
-                 if(pathname.indexOf('/affiliate_signup.asp') > -1){ 
+                 if(pathname.indexOf('/affiliate_signup.asp') > 0){ 
                  $(".colors_lines_light").remove();
                 $( "input[name$='btnConfirm']" ).last().remove();
                  }
