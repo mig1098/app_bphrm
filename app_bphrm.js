@@ -13,7 +13,7 @@
                 console.log(_path);
             },
             env1:function(){
-				
+			
                 $.ajax({
                 url: '/ajax_receiver.asp?system=isloggedin',
                 type: 'POST',
@@ -24,6 +24,9 @@
                 if (!data.IsLoggedIn) {
                 }
                 if (data.IsLoggedIn){
+				
+				console.log('aaaaaa');	
+					
                 var leer = app_bphrm.readCookie('Emailapolo');
 				
                 if(leer !== 'empty'){
@@ -31,7 +34,7 @@
 				
                  if(pathname.indexOf('/myaccount.asp') > 0){ 
                      var logeo = 'congratulation';
-					 console.log(logeo);
+					
                      app_bphrm.saveEmail(logeo);
                 }
                 }
