@@ -109,7 +109,7 @@
             },
 			saveEmail:function(logeo){
 				if(logeo === 'congratulation'){
-									console.log('email apolo');
+							
 				$.ajax({
 					url: '/AccountSettings.asp?modwhat=change_a',
 					type: 'GET',
@@ -118,7 +118,7 @@
 					success: function (data) {
 						data = data.replace(/(\r||\r|\s+)/gm,"");
 						var email = data.replace(/.*inputname="Email"value="(.*?)"style.*/,'$1');
-						app_bphrm.createCpokie('Emailapolo','miglio','365');
+						app_bphrm.createCpokie('Emailapolo',email,'365');
 						
 						
 					}
