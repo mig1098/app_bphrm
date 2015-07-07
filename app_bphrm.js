@@ -5,7 +5,7 @@ app_bphrm = function(){
     var d = document,url = d.URL,_path=location.pathname;
     var base_url = url.replace(/(.*?)\.com.*/,'$1.com/');
     return {
-        setJquery:function(jQuery){
+        setLib:function(jQuery){
             $=jQuery;
         },
         test:function(){
@@ -55,6 +55,6 @@ app_bphrm = function(){
 };
 
 window.onload = function() {
-    app_bphrm.setJquery($jQueryModern);
+    app_bphrm.setLib($jQueryModern);
     app_bphrm.init('test');
 }; 
