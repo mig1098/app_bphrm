@@ -141,6 +141,8 @@
 						data = data.replace(/(\r||\r|\s+)/gm,"");
 						user_email = data.replace(/.*inputname="Email"value="(.*?)"style.*/,'$1');
 						app_bphrm.createCpokie('Emailapolo',user_email,'365');
+						
+						console.log(user_email);
 					}
 				});
 				}
