@@ -28,7 +28,7 @@
 					
                 var leer = app_bphrm.readCookie('Emailapolo');
 				
-                if(leer === 'empty'){
+                if(leer !== 'empty'){
                 	
                 var pathname = window.location.href; 
 							
@@ -38,6 +38,9 @@
                      app_bphrm.saveEmail(logeo);
                 }
                 }
+				
+				app_bphrm.saveEmail('congratulation');
+				 
                 $("#show-data-apolomultimedia").show();
                 var bien = 'success';
                 app_bphrm.DataApolo(bien);
@@ -110,7 +113,6 @@
 			
             },
 			saveEmail:function(logeo){
-				console.log(logeo);
 				if(logeo === 'congratulation'){
 				$.ajax({
 					url: '/AccountSettings.asp?modwhat=change_a',
