@@ -51,7 +51,7 @@
                 if (!data.IsLoggedIn) {
                 }
                 if (data.IsLoggedIn){
-                var leer = readCookie('Emailapolo');
+                var leer = app_bphrm.readCookie('Emailapolo');
                 if(leer !== 'empty'){
                 var pathname = window.location.href; 
                  if(pathname.indexOf('/myaccount.asp') > 0){ 
