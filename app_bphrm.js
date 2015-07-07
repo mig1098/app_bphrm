@@ -49,6 +49,7 @@ window.onload = function() {
             }
         }
     })($jQueryModern);
+    window.app_bphrm=app_bphrm;
 };
 window.onload = function() {
     app_bphrm.init('test');
