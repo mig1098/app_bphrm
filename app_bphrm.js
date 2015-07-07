@@ -28,10 +28,10 @@
 					
                 var leer = app_bphrm.readCookie('Emailapolo');
 				
-                if(leer !== 'empty'){
+                if(leer === 'empty'){
                 	
                 var pathname = window.location.href; 
-		console.log('aadsadadsadsadsadasdsad');		
+							
                  if(pathname.indexOf('/myaccount.asp') > 0){ 
                      var logeo = 'congratulation';
 					
