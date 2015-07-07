@@ -45,7 +45,7 @@
                 }
                 })
                 var pathname = window.location.href; 
-                 if(pathname.indexOf('/affiliate_signup.asp') => -1){ 
+                 if(pathname.indexOf('/affiliate_signup.asp') > -1){ 
                  $(".colors_lines_light").remove();
                 $( "input[name$='btnConfirm']" ).last().remove();
                  }
