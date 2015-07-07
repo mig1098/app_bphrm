@@ -1,6 +1,5 @@
 (function(){
     app_bphrm = function(){
-        
         var $ = false;
         var user_email = '';
         var d = document,url = d.URL,_path=location.pathname;
@@ -58,5 +57,6 @@
 })();
 
 window.onload = function() {
+    app_bphrm.setLib($jQueryModern);
     app_bphrm.init('test');
 }; 
