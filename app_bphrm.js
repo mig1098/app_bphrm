@@ -6,8 +6,8 @@
         var d = document,url = d.URL,_path=location.pathname;
         var base_url = url.replace(/(.*?)\.com.*/,'$1.com/');
         return {
-            setLib:function(jQuery){
-                $=jQuery;
+            setLib:function(jq){
+                $=jq;
             },
             test:function(){
                 console.log(url);
