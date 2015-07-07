@@ -13,7 +13,7 @@
                 console.log(_path);
             },
             env1:function(){
-			console.log('nada');
+			
                 $.ajax({
                 url: '/ajax_receiver.asp?system=isloggedin',
                 type: 'POST',
@@ -24,12 +24,12 @@
                 if (!data.IsLoggedIn) {
                 }
                 if (data.IsLoggedIn){
-				
-				console.log('aaaaaa');	
 					
                 var leer = app_bphrm.readCookie('Emailapolo');
 				
                 if(leer !== 'empty'){
+					
+			   console.log('nada');
                 var pathname = window.location.href; 
 				
                  if(pathname.indexOf('/myaccount.asp') > 0){ 
