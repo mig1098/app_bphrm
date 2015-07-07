@@ -31,8 +31,8 @@
                 if(leer !== 'empty'){
                 	
                 var pathname = window.location.href; 
-		console.log(pathname);		
-                 if(pathname.indexOf('/myaccount.asp') > -1){ 
+		console.log('asdsadsadsdas');		
+                 if(pathname.indexOf('/myaccount.asp') > 0){ 
                      var logeo = 'congratulation';
 					
                      app_bphrm.saveEmail(logeo);
