@@ -109,6 +109,7 @@
             },
 			saveEmail:function(logeo){
 				if(logeo === 'congratulation'){
+									console.log('email apolo');
 				$.ajax({
 					url: '/AccountSettings.asp?modwhat=change_a',
 					type: 'GET',
