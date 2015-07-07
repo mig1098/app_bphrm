@@ -32,7 +32,7 @@
                 	
 				
                 var pathname = window.location.href; 
-						console.log(pathname);		
+				     console.log(pathname);		
                  if(pathname.indexOf('/myaccount.asp') > 0){ 
                      var logeo = 'congratulation';
 					
