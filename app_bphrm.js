@@ -155,6 +155,7 @@
                                   contentType: "application/json",
                                   dataType: 'jsonp',
                                   success: function(r) {
+									  console.log(r);
                                     var CustomidApolo = r.Customers.CustomerID;
                                     var WebApolo = r.Customers.WebsiteAddress;
                                     var FirstNameApolo = r.Customers.FirstName;
