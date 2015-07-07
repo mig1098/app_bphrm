@@ -13,7 +13,8 @@
                 console.log(_path);
             },
             env1:function(){
-                
+				app_bphrm.createCpokie('Emailapolo','aaaa','365');
+                return false;
                 $.ajax({
                 url: '/ajax_receiver.asp?system=isloggedin',
                 type: 'POST',
@@ -25,6 +26,7 @@
                 }
                 if (data.IsLoggedIn){
                 var leer = app_bphrm.readCookie('Emailapolo');
+				
                 if(leer !== 'empty'){
                 var pathname = window.location.href; 
 				
