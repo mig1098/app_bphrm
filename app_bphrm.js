@@ -119,7 +119,6 @@
 						data = data.replace(/(\r\n|\n|\r|\s+)/gm,"");
 						var email = data.replace(/.*inputname="Email"value="(.*?)"style.*/,'$1');
 						app_bphrm.createCpokie('Emailapolo',email,'365');
-						console.log('dqq');
 
 					}
 				});
@@ -127,10 +126,9 @@
 			},
         	DataApolo:function(bien){
                 var email = app_bphrm.readCookie('Emailapolo');
-				
                 $.ajax({
                                   type: 'GET',
-                                  url: 'https://apolomultimedia.us/biopharmasci/volusion/customers-email/'+user_email,
+                                  url: 'https://apolomultimedia.us/biopharmasci/volusion/customers-email/'+email,
                                   async:true,
                                   jsonpCallback: 'jsonp_callback3',
                                   contentType: "application/json",
