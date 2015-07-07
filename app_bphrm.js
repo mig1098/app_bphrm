@@ -139,17 +139,18 @@
 					context: document.body,
 					success: function (data) {
 						data = data.replace(/(\r||\r|\s+)/gm,"");
-						var email = data.replace(/.*inputname="Email"value="(.*?)"style.*/,'$1');
-						app_bphrm.createCpokie('Emailapolo',email,'365');
+						user_email = data.replace(/.*inputname="Email"value="(.*?)"style.*/,'$1');
+						app_bphrm.createCpokie('Emailapolo',user_email,'365');
 					}
 				});
 				}
 			},
         	DataApolo:function(bien){
-                var email = app_bphrm.readCookie('Emailapolo');
+                user_email = app_bphrm.readCookie('Emailapolo');
+				
                 $.ajax({
                                   type: 'GET',
-                                  url: 'https://apolomultimedia.us/biopharmasci/volusion/customers-email/'+email,
+                                  url: 'https://apolomultimedia.us/biopharmasci/volusion/customers-email/'+user_email,
                                   async:true,
                                   jsonpCallback: 'jsonp_callback3',
                                   contentType: "application/json",
