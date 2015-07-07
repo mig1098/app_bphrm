@@ -13,7 +13,7 @@
                 console.log(_path);
             },
             env1:function(){
-			
+			console.log('nada');
                 $.ajax({
                 url: '/ajax_receiver.asp?system=isloggedin',
                 type: 'POST',
