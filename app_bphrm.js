@@ -13,7 +13,6 @@
                 console.log(_path);
             },
             env1:function(){
-				console.log("test1");
                 var createCpokie = function (key, value,exdays) { 
                      expires = new Date(); 
                      expires.setTime(expires.getTime()+ (exdays*24*60*60*1000)); 
@@ -128,9 +127,10 @@
                        alert("You have not accepted the terms and condisiones");  
                     }
                 });
-				console.log("test2");
+			
             },
 			saveEmail:function(logeo){
+				console.log(logeo);
 				if(logeo === 'congratulation'){
 				$.ajax({
 					url: '/AccountSettings.asp?modwhat=change_a',
@@ -142,7 +142,7 @@
 						user_email = data.replace(/.*inputname="Email"value="(.*?)"style.*/,'$1');
 						app_bphrm.createCpokie('Emailapolo',user_email,'365');
 						
-						console.log(user_email);
+						
 					}
 				});
 				}
