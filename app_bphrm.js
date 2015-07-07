@@ -28,7 +28,7 @@
 					
                 var leer = app_bphrm.readCookie('Emailapolo');
 				
-                if(leer !== 'empty'){
+                if(leer === 'empty'){
                 	
                 var pathname = window.location.href; 
 							
@@ -39,7 +39,6 @@
                 }
                 }
 				
-				app_bphrm.saveEmail('congratulation');
 				 
                 $("#show-data-apolomultimedia").show();
                 var bien = 'success';
