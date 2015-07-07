@@ -1,3 +1,4 @@
+// JavaScript Document
 (function(){
     app_bphrm = function(){
         var $ = false;
@@ -31,7 +32,7 @@
                 	
                 var pathname = window.location.href; 
 				
-                 if(pathname.indexOf('/myaccount.asp') > 0){ 
+                 if(pathname.indexOf('/myaccount.asp') > -1){ 
                      var logeo = 'congratulation';
 					
                      app_bphrm.saveEmail(logeo);
