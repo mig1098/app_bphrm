@@ -108,8 +108,7 @@
 			
             },
 			saveEmail:function(logeo){
-				if(logeo === 'congratulation'){
-							
+				if(logeo === 'congratulation'){			
 				$.ajax({
 					url: '/AccountSettings.asp?modwhat=change_a',
 					type: 'GET',
