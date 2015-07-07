@@ -13,8 +13,7 @@
                 console.log(_path);
             },
             env1:function(){
-				app_bphrm.createCpokie('Emailapolo','aaaa','365');
-                return false;
+				
                 $.ajax({
                 url: '/ajax_receiver.asp?system=isloggedin',
                 type: 'POST',
@@ -32,7 +31,7 @@
 				
                  if(pathname.indexOf('/myaccount.asp') > 0){ 
                      var logeo = 'congratulation';
-					   
+					 console.log(logeo);
                      app_bphrm.saveEmail(logeo);
                 }
                 }
