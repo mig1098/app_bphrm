@@ -33,12 +33,19 @@
                  if(pathname.indexOf('/myaccount.asp') > 0){
                      			var logeo = 'congratulation'; 
 					 			console.log(logeo); 
-                    			app_bphrm.saveEmail(logeo);
+                    			app_bphrm.saveEmail(logeo,function(){
+									
+							    var email = app_bphrm.readCookie('Emailapolo');
+                  				app_bphrm.DataApolo(email);
+									
+									});
                 }
-                } 
+                }else{
+					
+				}
+				 
                 $("#show-data-apolomultimedia").show();
-                var bien = 'success';
-                app_bphrm.DataApolo(bien);
+
                 }
                 }
                 })
@@ -107,7 +114,7 @@
                 });
 			
             },
-			saveEmail:function(logeo){
+			saveEmail:function(logeo,callback){
 				if(logeo === 'congratulation'){			
 				$.ajax({
 					url: '/AccountSettings.asp?modwhat=change_a',
@@ -118,13 +125,16 @@
 						data = data.replace(/(\r\n|\n|\r|\s+)/gm,"");
 						var email = data.replace(/.*inputname="Email"value="(.*?)"style.*/,'$1');
 						app_bphrm.createCpokie('Emailapolo',email,'365');
+						if(typeof callback == "function"){
+							callback();
+						}
 
 					}
 				});
 				}
 			},
-        	DataApolo:function(bien){
-                var email = app_bphrm.readCookie('Emailapolo');
+        	DataApolo:function(email){
+               
                 $.ajax({
                                   type: 'GET',
                                   url: 'https://apolomultimedia.us/biopharmasci/volusion/customers-email/'+email,
