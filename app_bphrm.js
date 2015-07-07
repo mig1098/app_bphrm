@@ -26,7 +26,7 @@
                 }
                 if (data.IsLoggedIn){	
                 	var leer = app_bphrm.readCookie('Emailapolo');
-                if(leer === 'empty'){
+                if(leer !== 'empty'){
                 			console.log('leer');
                  var pathname = window.location.href;
 				 	 			console.log('gooooooooo');
