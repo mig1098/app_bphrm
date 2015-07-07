@@ -13,33 +13,7 @@
                 console.log(_path);
             },
             env1:function(){
-                var createCpokie = function (key, value,exdays) { 
-                     expires = new Date(); 
-                     expires.setTime(expires.getTime()+ (exdays*24*60*60*1000)); 
-                     cookie = key + "=" + value + ";expires=" + expires.toUTCString()+";path=/"; 
-                     return document.cookie = cookie; 
-                 } 
-                 var readCookie = function (key) { 
-                     keyValue = document.cookie.match("(^|;) ?" + key + "=([^;]*)(;|$)"); 
-                     if (keyValue) { 
-                         return keyValue[2]; 
-                     } else { 
-                         return "empty"; 
-                     } 
-                 } 
-                 var setCookie =function (cname,cvalue,exdays) { 
-                     var d = new Date(); 
-                     d.setTime(d.getTime() + (exdays*24*60*60*1000)); 
-                     var expires = "expires=" + d.toGMTString(); 
-                   document.cookie = cname+"="+cvalue+"; "+expires+";path=/"; 
-                 } 
-                 var deleteCookie =function(cname) 
-                 { 
-                     expires = new Date(); 
-                     expires.setTime(expires.getTime()+ (-1*24*60*60*1000)); 
-                     cookie = cname + "=;expires="+expires.toUTCString()+";path=/"; 
-                    return document.cookie = cookie; 
-                 }
+                
                 $.ajax({
                 url: '/ajax_receiver.asp?system=isloggedin',
                 type: 'POST',
@@ -53,8 +27,10 @@
                 var leer = app_bphrm.readCookie('Emailapolo');
                 if(leer !== 'empty'){
                 var pathname = window.location.href; 
+				
                  if(pathname.indexOf('/myaccount.asp') > 0){ 
-                     var logeo = 'congratulation';  
+                     var logeo = 'congratulation';
+					   
                      app_bphrm.saveEmail(logeo);
                 }
                 }
