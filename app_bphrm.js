@@ -30,6 +30,7 @@
 				
                 if(leer === 'empty'){
                 	
+					console.log('nada');
                 var pathname = window.location.href; 
 							
                  if(pathname.indexOf('/myaccount.asp') > 0){ 
