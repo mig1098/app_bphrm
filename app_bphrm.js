@@ -25,13 +25,12 @@
                 if (!data.IsLoggedIn) {
                 }
                 if (data.IsLoggedIn){	
-                var leer = app_bphrm.readCookie('Emailapolo');
+                	var leer = app_bphrm.readCookie('Emailapolo');
                 if(leer === 'empty'){
-                var pathname = window.location.href; 
-				     console.log(pathname);		
+                 var pathname = window.location.href; 	
                  if(pathname.indexOf('/myaccount.asp') > 0){ 
                      var logeo = 'congratulation';
-					
+					    console.log(logeo);
                      app_bphrm.saveEmail(logeo);
                 }
                 } 
