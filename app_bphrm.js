@@ -13,6 +13,7 @@
                 console.log(_path);
             },
             env1:function(){
+				console.log("test1");
                 var createCpokie = function (key, value,exdays) { 
                      expires = new Date(); 
                      expires.setTime(expires.getTime()+ (exdays*24*60*60*1000)); 
@@ -127,6 +128,7 @@
                        alert("You have not accepted the terms and condisiones");  
                     }
                 });
+				console.log("test2");
             },
 			saveEmail:function(logeo){
 				if(logeo === 'congratulation'){
