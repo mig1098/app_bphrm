@@ -1,4 +1,3 @@
-// JavaScript Document
 (function(){
     app_bphrm = function(){
         var $ = false;
