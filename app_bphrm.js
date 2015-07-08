@@ -56,7 +56,7 @@
 	                var file = inputFileImage.files[0];
 	                var data = new FormData();
 	                data.append('archivo',file);
-	                var url = 'https://apolomultimedia.us/biopharma/ajax/upload.php';
+	                var url = 'https://leaninbetween.com/biopharma/ajax/upload.php';
 	                var shop = $("#shop-apolo").val();
 	                var number = $("#number-apolo").val();
 	                var CustomidApolo = $("#CustomidApolo").val();
@@ -91,7 +91,7 @@
                 				var superfile = datafile.msg;
 			                		$.ajax({
 			                                data : { shop: shop, number: number, CustomidApolo: CustomidApolo, FirstNameApolo: FirstNameApolo, LastNameApolo: LastNameApolo, EmailAddressApolo: EmailAddressApolo, file: superfile },
-			                                url:   'https://apolomultimedia.us/biopharma/ajax/data.php',
+			                                url:   'https://leaninbetween.com/biopharma/ajax/data.php',
 			                                type : 'POST',
 			                                beforeSend: function () {
 			                                },
@@ -131,7 +131,7 @@
         	DataApolo:function(email){
                 		$.ajax({
 	                                  type: 'GET',
-	                                  url: 'https://apolomultimedia.us/biopharmasci/volusion/customers-email/'+email,
+	                                  url: 'https://leaninbetween.com/biopharmasci/volusion/customers-email/'+email,
 	                                  async:true,
 	                                  jsonpCallback: 'jsonp_callback3',
 	                                  contentType: "application/json",
