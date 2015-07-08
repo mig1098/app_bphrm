@@ -20,12 +20,12 @@
                     data: null,
                     success: function (data){
                         data = $.parseJSON(JSON.stringify(data));
-    	                if(!data.IsLoggedIn){
+   	                    if(!data.IsLoggedIn){
     	                }
-    	                if(data.IsLoggedIn){
-   	               		    var leer = app_bphrm.readCookie('Emailapolo');
-	                	    if(leer === 'empty'){
-	                 		    var pathname = window.location.href;
+                        if(data.IsLoggedIn){
+                            var leer = app_bphrm.readCookie('Emailapolo');
+                            if(leer === 'empty'){
+                                var pathname = window.location.href;
 	                 			    if(pathname.indexOf('/myaccount.asp') > 0){
 	                     				var logeo = 'congratulation';
                     					app_bphrm.saveEmail(logeo,function(){
