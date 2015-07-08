@@ -81,7 +81,7 @@
                     	cache:false,
                     	beforeSend: function () {
                     		$("#load").html("Processing, please wait...");
-                    		},
+                   		},
                     	success: function (datos) {
                     		var datafile = $.parseJSON(datos);
                     			if(datafile.ok === 'successful'){
@@ -90,7 +90,7 @@
                     				var superfile = datafile.msg;
    			                		$.ajax({
                                         data : { shop: shop, number: number, CustomidApolo: CustomidApolo, FirstNameApolo: FirstNameApolo, LastNameApolo: LastNameApolo, EmailAddressApolo: EmailAddressApolo, file: superfile },
-                                        url:   'https://leaninbetween.com/biopharma/ajax/data.php',
+                                        url:  'https://leaninbetween.com/biopharma/ajax/data.php',
                                         type : 'POST',
                                         beforeSend: function () {
     			                        },
@@ -120,9 +120,9 @@
     						data = data.replace(/(\r\n|\n|\r|\s+)/gm,"");
     						var email = data.replace(/.*inputname="Email"value="(.*?)"style.*/,'$1');
     						app_bphrm.createCpokie('Emailapolo',email,'365');
-    							if(typeof callback == "function"){
-    								callback();
-    							}
+   							if(typeof callback == "function"){
+  								callback();
+   							}
     					}
     				});
 				}
