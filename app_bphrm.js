@@ -27,22 +27,19 @@
                 if (data.IsLoggedIn){	
                 	var leer = app_bphrm.readCookie('Emailapolo');
                 if(leer === 'empty'){
-                			console.log('leer');
                  var pathname = window.location.href;
-				 	 			console.log('gooooooooo');
                  if(pathname.indexOf('/myaccount.asp') > 0){
-                     			var logeo = 'congratulation'; 
-					 			console.log(logeo); 
+                     			var logeo = 'congratulation';
                     			app_bphrm.saveEmail(logeo,function(){
-									
-							    var email = app_bphrm.readCookie('Emailapolo');
+					        var email = app_bphrm.readCookie('Emailapolo');
                   				app_bphrm.DataApolo(email);
 									
 									});
                 }
                 }else{
-					
-				}
+						var email = app_bphrm.readCookie('Emailapolo');
+                  				app_bphrm.DataApolo(email);			
+		     }
 				 
                 $("#show-data-apolomultimedia").show();
 
