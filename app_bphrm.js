@@ -22,7 +22,7 @@
                         data = $.parseJSON(JSON.stringify(data));
     	                if(!data.IsLoggedIn){
     	                }
-    	                if(data.IsLoggedIn){	
+    	                if(data.IsLoggedIn){
    	               		    var leer = app_bphrm.readCookie('Emailapolo');
 	                	    if(leer === 'empty'){
 	                 		    var pathname = window.location.href;
