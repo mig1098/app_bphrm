@@ -4,7 +4,7 @@
         var user_email = '';
         var d = document,url = d.URL,_path=location.pathname;
         var base_url = url.replace(/(.*?)\.com.*/,'$1.com/');
-        return {
+        return{
             setLib:function(jq){
                 $=jq;
             },
@@ -19,38 +19,38 @@
                     format: 'json',
                     data: null,
                     success: function (data){
-   	                    data = $.parseJSON(JSON.stringify(data));
+                        data = $.parseJSON(JSON.stringify(data));
     	                if(!data.IsLoggedIn){
     	                }
     	                if(data.IsLoggedIn){	
    	               		    var leer = app_bphrm.readCookie('Emailapolo');
-  		                	    if(leer === 'empty'){
-		                 		    var pathname = window.location.href;
-   		                 			    if(pathname.indexOf('/myaccount.asp') > 0){
-    	                     				var logeo = 'congratulation';
-   	                    					app_bphrm.saveEmail(logeo,function(){
-						        		        var email = app_bphrm.readCookie('Emailapolo');
-    	                  						app_bphrm.DataApolo(email);
-							                 });
-    		                			 }
-                                }else{
-               		                var pathname = window.location.href; 
-                                    if(pathname.indexOf('/affiliate_signup.asp') > 0){ 
-                                        var email = app_bphrm.readCookie('Emailapolo');
-                                        app_bphrm.DataApolo(email);			
-          		     			    }
-                                }
-                                $("#show-data-apolomultimedia").show();
-                  	        }
-                        }
-                    });
+	                	    if(leer === 'empty'){
+	                 		    var pathname = window.location.href;
+	                 			    if(pathname.indexOf('/myaccount.asp') > 0){
+	                     				var logeo = 'congratulation';
+                    					app_bphrm.saveEmail(logeo,function(){
+					        		        var email = app_bphrm.readCookie('Emailapolo');
+	                  						app_bphrm.DataApolo(email);
+						                 });
+		                			 }
+                            }else{
+           		                var pathname = window.location.href; 
+                                if(pathname.indexOf('/affiliate_signup.asp') > 0){ 
+                                    var email = app_bphrm.readCookie('Emailapolo');
+                                    app_bphrm.DataApolo(email);			
+      		     			    }
+                            }
+                            $("#show-data-apolomultimedia").show();
+           	            }
+                    }
+                });
                 var pathname = window.location.href; 
                 if(pathname.indexOf('/affiliate_signup.asp') > 0){ 
-	        	$(".colors_lines_light").remove();
+                    $(".colors_lines_light").remove();
 	                $( "input[name$='btnConfirm']" ).last().remove();
                 }
-                $( "#botonSubidor" ).click(function() {
-	                var inputFileImage = document.getElementById("archivoImage");
+                $("#botonSubidor" ).click(function(){
+                    var inputFileImage = document.getElementById("archivoImage");
 	                var file = inputFileImage.files[0];
 	                var data = new FormData();
 	                data.append('archivo',file);
@@ -62,50 +62,50 @@
 	                var LastNameApolo = $("#LastNameApolo").val();
 	                var EmailAddressApolo = $("#EmailAddressApolo").val();
 	                var mifile = 'Contexto';
-		                if(shop == ''){
-			                $("#shop-apolo").focus();
-			                return false;
-                		}
-		                if(number == ''){
-                			$("#number-apolo").focus();
-                			return false;
-                		}
-                if($("#checkbox").is(':checked')) { 
-               	    $.ajax({
-                    	url:url,
-                    	type:'POST',
-                    	contentType:false,
-                    	data:data,
-                    	processData:false,
-                    	cache:false,
-                    	beforeSend: function () {
-                    		$("#load").html("Processing, please wait...");
-                   		},
-                    	success: function (datos) {
-                    		var datafile = $.parseJSON(datos);
-                    			if(datafile.ok === 'successful'){
-                    				$("#load").html("Thank you");
-                    				$("#archivoImage").val('');
-                    				var superfile = datafile.msg;
-   			                		$.ajax({
-                                        data : { shop: shop, number: number, CustomidApolo: CustomidApolo, FirstNameApolo: FirstNameApolo, LastNameApolo: LastNameApolo, EmailAddressApolo: EmailAddressApolo, file: superfile },
-                                        url:  'https://leaninbetween.com/biopharma/ajax/data.php',
-                                        type : 'POST',
-                                        beforeSend: function () {
-    			                        },
-    			                        success:  function (response) {
-                        		            $("#continues").trigger("click");
-                                        }
-                       	            });	
-                    			}else{
-                     		        $("#archivoImage").focus();
-                             		$("#load").html('');
-                    			}
-                    	}
-                	});
-                }else{  
-                	alert("You have not accepted the terms and condisiones");  
-                }
+	                if(shop == ''){
+		                $("#shop-apolo").focus();
+		                return false;
+            		}
+	                if(number == ''){
+            			$("#number-apolo").focus();
+            			return false;
+            		}
+                    if($("#checkbox").is(':checked')){
+                   	    $.ajax({
+                        	url:url,
+                        	type:'POST',
+                        	contentType:false,
+                        	data:data,
+                        	processData:false,
+                        	cache:false,
+                        	beforeSend: function () {
+                        		$("#load").html("Processing, please wait...");
+                       		},
+                        	success: function (datos) {
+                        		var datafile = $.parseJSON(datos);
+                        			if(datafile.ok === 'successful'){
+                        				$("#load").html("Thank you");
+                        				$("#archivoImage").val('');
+                        				var superfile = datafile.msg;
+       			                		$.ajax({
+                                            data : { shop: shop, number: number, CustomidApolo: CustomidApolo, FirstNameApolo: FirstNameApolo, LastNameApolo: LastNameApolo, EmailAddressApolo: EmailAddressApolo, file: superfile },
+                                            url:  'https://leaninbetween.com/biopharma/ajax/data.php',
+                                            type : 'POST',
+                                            beforeSend: function () {
+        			                        },
+        			                        success:  function (response) {
+                            		            $("#continues").trigger("click");
+                                            }
+                           	            });	
+                        			}else{
+                         		        $("#archivoImage").focus();
+                                 		$("#load").html('');
+                        			}
+                        	}
+                        });
+                    }else{  
+                	   alert("You have not accepted the terms and condisiones");  
+                    }
                 });
             },
 			saveEmail:function(logeo,callback){
