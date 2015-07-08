@@ -26,13 +26,13 @@
                             var leer = app_bphrm.readCookie('Emailapolo');
                             if(leer === 'empty'){
                                 var pathname = window.location.href;
-	                 			    if(pathname.indexOf('/myaccount.asp') > 0){
-	                     				var logeo = 'congratulation';
-                    					app_bphrm.saveEmail(logeo,function(){
-					        		        var email = app_bphrm.readCookie('Emailapolo');
-	                  						app_bphrm.DataApolo(email);
-						                 });
-		                			 }
+                 			    if(pathname.indexOf('/myaccount.asp') > 0){
+                 				    var logeo = 'congratulation';
+                   					app_bphrm.saveEmail(logeo,function(){
+			        		            var email = app_bphrm.readCookie('Emailapolo');
+               						    app_bphrm.DataApolo(email);
+				                     });
+	                			 }
                             }else{
            		                var pathname = window.location.href; 
                                 if(pathname.indexOf('/affiliate_signup.asp') > 0){ 
