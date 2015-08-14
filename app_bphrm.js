@@ -5,11 +5,15 @@
         var d = document,url = d.URL,_path=location.pathname;
         var base_url = url.replace(/(.*?)\.com.*/,'$1.com/');
         /**/
+        var conditions = ['recurring','bi-monthly','quarterly'];
+        var URI = {prdata:'//leaninbetween.com/biopharmasci/volusion/product-data',chk:'//leaninbetween.com/biopharmasci/cart',lgg:'/ajax_receiver.asp?system=isloggedin'};
         var BTNADDTOCART = 'input[name="btnaddtocart"]';
+        var BTNCHECKOUT = 'input[name="btn_checkout_guest"]';
         var PRODUCT_CODE = '';
         var CARTNAME = '_cartapi';
         var SUFIX = '-ap';
         var CARTAPI_ID = 'cartapi-btn';
+        var CURRENCY = '$';
         return{
             setLib:function(jq){
                 $=jq;
@@ -20,7 +24,7 @@
             },
             env1:function(){
                 $.ajax({
-                    url: '/ajax_receiver.asp?system=isloggedin',
+                    url: URI.lgg,
                     type: 'POST',
                     format: 'json',
                     data: null,
@@ -143,17 +147,17 @@
                     contentType: "application/json",
                     dataType: 'jsonp',
                     success: function(r) {
-                        var CustomidApolo = r.Customers.CustomerID;
-                        var WebApolo = r.Customers.WebsiteAddress;
-                        var FirstNameApolo = r.Customers.FirstName;
-                        var LastNameApolo = r.Customers.LastName;
-                        var EmailAddressApolo = r.Customers.EmailAddress;
-                        var CompanyName =  r.Customers.CompanyName;
-                        var BillingAddress1 = r.Customers.BillingAddress1;
-                        var BillingAddress2 = r.Customers.BillingAddress2;
-                        var City = r.Customers.City;
-                        var State = r.Customers.State;
-                        var PostalCode = r.Customers.PostalCode;
+                        var CustomidApolo = r.Customers.CustomerID || '';
+                        var WebApolo = r.Customers.WebsiteAddress || '';
+                        var FirstNameApolo = r.Customers.FirstName || '';
+                        var LastNameApolo = r.Customers.LastName || '';
+                        var EmailAddressApolo = r.Customers.EmailAddress || '';
+                        var CompanyName =  r.Customers.CompanyName || '';
+                        var BillingAddress1 = r.Customers.BillingAddress1 || '';
+                        var BillingAddress2 = r.Customers.BillingAddress2 || '';
+                        var City = r.Customers.City || '';
+                        var State = r.Customers.State || '';
+                        var PostalCode = r.Customers.PostalCode || '';
                         app_bphrm.CustomerApolomultimedia(CustomidApolo,WebApolo,FirstNameApolo,LastNameApolo,EmailAddressApolo,CompanyName,BillingAddress1,BillingAddress2,City,State,PostalCode);
                     },
                     error: function(e) {
@@ -195,7 +199,64 @@
                 cookie = cname + "=;expires="+expires.toUTCString()+";path=/"; 
                 return document.cookie = cookie; 
             },//CART
-            fromSelect:function(){
+            isLogged:function(callback){
+                $.ajax({
+                    url: URI.lgg,
+                    type: 'POST',
+                    format: 'json',
+                    data: null,
+                    success: function (data){
+                        if(typeof callback === 'function'){
+                            callback(data);
+                        }
+                        /*
+                        data = $.parseJSON(JSON.stringify(data));
+   	                    if(!data.IsLoggedIn){
+    	                }
+                        if(data.IsLoggedIn){
+                            var leer = app_bphrm.readCookie('Emailapolo');
+                            if(leer === 'empty'){
+                                var pathname = window.location.href;
+                                if(pathname.indexOf('/myaccount.asp') > 0){
+                                    var logeo = 'congratulation';
+                                    app_bphrm.saveEmail(logeo,function(){
+                                        var email = app_bphrm.readCookie('Emailapolo');
+                                        app_bphrm.DataApolo(email);
+                                    });
+                                }else{
+                                     window.location.href = 'https://www.biopharmasci.com/myaccount.asp';
+                                }
+                            }else{
+           		                var pathname = window.location.href; 
+                                if(pathname.indexOf('/affiliate_signup.asp') > 0){ 
+                                    var email = app_bphrm.readCookie('Emailapolo');
+                                    app_bphrm.DataApolo(email);			
+      		     			    }
+                            }
+                            $("#show-data-apolomultimedia").show();
+           	            }
+                        */
+                    }
+                });
+            },
+            secform:function(){
+                var prods = app_bphrm.cartjs.products; 
+                //console.log(prods);
+                var f='<form id="frm-bphrm" method="post" action="'+URI.chk+'" target="_top">';
+                for(i in prods){
+                    f += '<input type="text" name="product['+prods[i].code+']" value="'+prods[i].name+'|'+prods[i].qty+'|'+prods[i].price+'|'+prods[i].img+'" />';
+                }
+                f +='<input type="hidden" name="action" value="chk" />';
+                f += '<input type="hidden" name="email" value="'+app_bphrm.cartjs.email+'" />';
+                f +='</form>';
+                if($(document).find('#frm-bphrm-content').length > 0 ){
+                    //console.log('exist');
+                    $('#frm-bphrm-content').html(f);
+                }else{
+                    //console.log('new form');
+                    $('body').append('<div id="frm-bphrm-content">'+f+'</div>');
+                }
+                $('#frm-bphrm').submit();
             },
             cartapiContent:function(callback){
                 app_bphrm.cartjs.prodsToArray();
@@ -208,9 +269,7 @@
                 content += '<ul class="nav navbar-nav navbar-right">';
                 content += '<li class="dropdown">';
                 content += '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-shopping-cart"></span> '+total_items+' - Recurring Items<span class="caret"></span></a>';
-          
                 content +='<ul class="dropdown-menu dropdown-cart" role="menu">';
-
                 if(cart_prods.length > 0){
                     for(i in cart_prods){
                         content += '<li>';
@@ -221,7 +280,7 @@
                         content +=   '<span class="item-info">';
                         content +=     '<span>'+cart_prods[i].name+'</span>';
                         content +=     '<span class="pull-left">Qty:'+cart_prods[i].qty+'</span> ';
-                        content +=     '<span class="pull-right">$'+cart_prods[i].price+'</span>';
+                        content +=     '<span class="pull-right lnprice'+i+'">'+app_bphrm.checkProdPrice(cart_prods[i],'lnprice'+i,i)+'</span>';
                         content +=   '</span>';
                         content += '</span>';
                         //
@@ -237,14 +296,13 @@
                         */
                     }
                     content += '<li class="divider"></li>';
-                    content += '<li><a class="text-center" href="">Checkout</a></li>';
+                    content += '<li><a class="text-center scfrm" href="#" target="_blank">Checkout</a></li>';
                 }else{
                     content +='<li><span class="item"><p class="bg-warning text-center" style="padding:10px;">Empty</p></span></li>';
                 }
                 content += '</ul>';
                 content += '</li>';
                 content += '</ul>';
-                        
                 content += '</div>';
                 $('#'+CARTAPI_ID).html(content);
                 if(typeof callback === 'function'){
@@ -253,15 +311,12 @@
             },
             cartapiAdd:function(form,_this){//BTN ADD TO CART
                 var inputs = $(form).serializeArray();
-                //console.log(inputs);
                 var _select = $(form).find('select');
                 var opt_text = _select.find('option:selected').text();
                 var _class = (function(opt_text){
                     return '.'+opt_text.replace(/[^a-zA-Z0-9]/gm,'')+SUFIX;
                 })(opt_text);
-                //console.log(_class);
                 var _json =  JSON.parse($(_class).text());
-                //console.log(_json);
                 //-----------------------------------
                 // -- FILTER ITEM PROPERTIES BEGIN --
                 //-----------------------------------
@@ -276,9 +331,11 @@
                     }
                     //console.log(inputs[i].name+'='+inputs[i].value);
                 }
+                var item_code = '';
                 for(j in _json.data['Empty']){
                     if(PRODUCT_CODE == _json.data['Empty'][j][1]){
-                        item += '|'+_json.data['Empty'][j][0];//[2]->code
+                        item_code = _json.data['Empty'][j][0];
+                        item += '|'+item_code;//[2]->code
                     }
                 }
                 item += '|'+'0.00';//[3]->price
@@ -297,6 +354,8 @@
                     if(total_items > 0){
                         $('#'+CARTAPI_ID).css({'display':'block'});
                     }
+                    //NATIVE FUNCTION
+                    addToCart(form,_this);
                 });
             },
             cartapiBuild:function(){
@@ -307,33 +366,167 @@
                         $('#'+CARTAPI_ID).css({'display':'block'});
                     }
                 });
-                
                 $(document).on('click','.bphrm-item-del',function(){
                     var code = $(this).attr('code');
                     app_bphrm.cartjs.delete(code);
                     app_bphrm.cartapiContent();
                 });
-                
+                $(document).on('click','.scfrm',function(e){
+                    e.preventDefault();
+                    app_bphrm.secform();
+                    
+                });
                 //TO CHANGE EVENT BUTTON
                 //return true;
-                //$(BTNADDTOCART).attr('onclick','return app_bphrm.cartapiAdd(this.form,this);').attr('type','button');
+                $(BTNADDTOCART).attr('onclick','return app_bphrm.cartapiAdd(this.form,this);').attr('type','button');
                 /*
                     TEST BUTTON
                 */
-                $(BTNADDTOCART).after('<button type="button" class="btn btn-primary" onclick="return app_bphrm.cartapiAdd(this.form,this);" style="display:none;margin: 10px auto;">cart auto</button>');
+                //$(BTNADDTOCART).after('<button type="button" class="btn btn-primary" onclick="return app_bphrm.cartapiAdd(this.form,this);" style="display:none;margin: 10px auto;">cart auto</button>');
                 //$(BTNADDTOCART).remove();
             },
             cartapi:function(){
                 //CART VARIABLES
+                //console.log(_path);
+                //ajax cart
+                
+                // -- PRODUCT PAGE --
                 app_bphrm.cartjs.CARTNAME = CARTNAME;
+                /*
                 var _class = "div[class*='-ap']";
                 if($(_class).length > 0){
                     //console.log($(_class).length);
                     app_bphrm.cartapiBuild();
-                }else{
-                    //console.log('qwerty');
-                    return false;
                 }
+                */
+                //native cart page
+                $(document).on('click','#bphm-cart-chk',function(){
+                    app_bphrm.isLogged(function(resp){
+                        if(resp.IsLoggedIn == true){
+                            var liam = app_bphrm.readCookie('Emailapolo');
+                            app_bphrm.cartjs.email = liam;
+                            app_bphrm.secform();
+                        }else{
+                            window.location.href = '/myaccount.asp';
+                        }
+                    });
+                });
+                if($('form[action="ShoppingCart.asp"]').length > 0){
+                    app_bphrm.mapVlsnCart();
+                }
+            },
+            productData:function(product,classname,sufix,callback){
+                $.ajax({
+                     type: 'GET',
+                      url: URI.prdata+'/'+product.code,
+                      data:{sufix:sufix},
+                      async: true,
+                      jsonpCallback: 'jsonp_callbacki'+sufix,
+                      contentType: "application/json",
+                      dataType: 'jsonp',
+                      success: function(r) {
+                        //console.log(r);
+                        if(r.Products!='false' && r.Products!=false){
+                            var rprice = parseFloat(r.Products.RecurringPrice);
+                            var q = parseInt(product.qty);
+                            $('.'+classname).text(CURRENCY+(rprice*q).toFixed(2));
+                            if(typeof callback === 'function'){
+                                callback(rprice);
+                            }
+                        }
+                      },
+                      error: function(e) {
+                        alert(e.message);
+                      }
+                  });
+            },
+            checkProdPrice:function(product,classname,sufix){
+                var p = parseFloat(product.price);
+                var q = parseInt(product.qty);
+                //console.log(product);
+                if(p > 0){
+                    return CURRENCY+(p*q).toFixed(2);
+                    $('.'+classname).text(CURRENCY+(p*q).toFixed(2));
+                }else{
+                    app_bphrm.productData(product,classname,sufix,function(price){
+                        product.price = price;
+                        app_bphrm.cartjs.update(CARTNAME,product); 
+                    });
+                }
+                return '0.00';
+            },
+            mapVlsnCart:function(){
+                var __={
+                    cart:{Products:[]},
+                    itemTypes:{recurr:0,other:0},
+                    onlyNumbers:function(n){
+                        return n.replace(/[^0-9.,]/,'');
+                    },
+                    checkConditions:function(product){
+                        var _name = (product.ProductName).toLowerCase();
+                        //console.log(_name+' - '+conditions+' '+conditions.indexOf(_name));
+                        var result = conditions.map(function(str){
+                            if(_name.indexOf(str) > -1){
+                                return 1;
+                            }else{
+                                return 0;
+                            }
+                        });
+                        //console.log(result);
+                        if(result.indexOf(1) > -1){
+                            __.itemTypes.recurr +=1;
+                            return true;
+                        }else{
+                            __.itemTypes.other +=1;
+                            return false;
+                        }
+                    },
+                    gotoCheckout:function(){
+                        //<input type="submit" id="" name="btn_checkout_guest" value="Proceed To Checkout" class="btn_checkout_guest btn btn-primary btn-lg btn_checkout_guest">
+                        //$(BTNCHECKOUT).attr('type','button');//CHANGE TYPE
+                        $(BTNCHECKOUT).after('<br /><small>Recurring products</small><input type="button" id="bphm-cart-chk" style="background: #222 none repeat scroll 0 0; border: medium none; bottom: 0; color: #555; position: absolute; right: 0;" value="Recurring Checkout"/>');
+                        //console.log(this.itemTypes);
+                        //console.log(this.cart);
+                        app_bphrm.cartjs.products = [];
+                        app_bphrm.cartjs.cartTotals = this.cart.Totals;
+                        if((this.cart.Products).length > 0){
+                            for(i in this.cart.Products){
+                                app_bphrm.cartjs.products.push({code:this.cart.Products[i].ProductCode,name:this.cart.Products[i].ProductName,qty:this.cart.Products[i].Quantity,price:__.onlyNumbers(this.cart.Products[i].ProductPrice),img:this.cart.Products[i].ImageSource});
+                            }
+                            //console.log(app_bphrm.cartjs.products);
+                        }
+                    }
+                },
+                ts = new Date().getTime();
+                //
+                $.getJSON('/ajaxcart.asp?cachebust=' + ts, function (data) {
+                    var quantityTotal = 0;
+                    //validate products
+                    var isAllRecurr = true;
+                    __.cart = data;
+                    $.each(data.Products, function (key, val) {
+                        if (val.IsProduct === 'Y') {
+                            if(!__.checkConditions(val)){ isAllRecurr=false; }
+                            quantityTotal += parseInt(val.Quantity);
+                        } else if (val.IsAccessory === 'Y') {
+                            if(!__.checkConditions(val)){ isAllRecurr=false; }
+                            quantityTotal += parseInt(val.Quantity);
+                        }
+                    });
+                    quantityTotal = quantityTotal || '0';
+                    //console.log(isAllRecurr);
+                    if(__.itemTypes.recurr > 0 && __.itemTypes.other == 0){
+                        __.gotoCheckout(data);
+                    }else if(__.itemTypes.recurr > 0 && __.itemTypes.other > 0){
+                        console.log('Only you can choose recurring or not recurring products');
+                        $(BTNCHECKOUT).hide().after('<small>Only choose recurring or not recurring products</small>');
+                        $(BTNCHECKOUT).closest('form').attr('action','').attr('method','').attr('name','');
+                        $(BTNCHECKOUT).remove();
+                    }else{
+                        console.log('checkout without recurring');
+                    }
+                    
+                });
             },
             init:function(action){
                 switch(action){
@@ -352,6 +545,8 @@
     //cart
     app_bphrm.cartjs = {
         products:[],
+        cartTotals:[],
+        email:'',
         CARTNAME:'_cartname',
         ACTION:{ADD:'add',UPDATE:'update',QUANTITY:'quantity',DELETE:'delete'},
         createCookie: function(name,value,days){//mg
@@ -403,8 +598,12 @@
             this.prodsToArray();
             this.action(this.CARTNAME,'0|1|'+prod_code,this.ACTION.DELETE);
         },
+        update:function(name,item){
+            this.prodsToArray();
+            this.action(name,[item.name,item.qty,item.code,item.price,item.img],this.ACTION.UPDATE);
+        },
         action:function(name,item,action){
-            var prod = item.split('|');
+            var prod = (typeof item === "object" && item.length !== 'undefined')?item:item.split('|');
             //console.log(this.products);
             var prod_exist=false;
             for(var i = 0; i < this.products.length; i++){
@@ -436,7 +635,6 @@
         prodsToArray:function(){
             //console.log('prodsToArray '+this.CARTNAME);
             var prods = this.getCookie(this.CARTNAME);
-            //console.log(prods);
             if(typeof prods == 'undefined' || prods==''){
                 console.log('prods is empty')
                 return false;
@@ -473,7 +671,7 @@
                 count += parseInt(this.products[i].qty);
             }
            return count;
-        }
+        }        
     };
     window.app_bphrm = app_bphrm;
 })(window);
