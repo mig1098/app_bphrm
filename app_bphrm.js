@@ -5,7 +5,7 @@
         var d = document,url = d.URL,_path=location.pathname;
         var base_url = url.replace(/(.*?)\.com.*/,'$1.com/');
         /**/
-        var conditions = ['recurring','bi-monthly','quarterly'];
+        var conditions = ['bi-monthly','quarterly','recurring'];
         var URI = {prdata:'//leaninbetween.com/biopharmasci/volusion/product-data',chk:'//leaninbetween.com/biopharmasci/cart',lgg:'/ajax_receiver.asp?system=isloggedin'};
         var BTNADDTOCART = 'input[name="btnaddtocart"]';
         var BTNCHECKOUT = 'input[name="btn_checkout_guest"]';
@@ -30,9 +30,49 @@
                     data: null,
                     success: function (data){
                         data = $.parseJSON(JSON.stringify(data));
-   	                    if(!data.IsLoggedIn){
-    	                }
-                        if(data.IsLoggedIn){
+						var pat = window.location.href;
+						if(pat.indexOf('login.asp') > 0){
+							app_bphrm.createCpokie('session','n','365');
+							app_bphrm.createCpokie('affiliates','true','365');
+							app_bphrm.deleteCookie('condicionar');
+						}
+						if(pat.indexOf('myaccount.asp') > 0){
+							app_bphrm.createCpokie('session','y','365');
+							setTimeout(function(){
+							var affiliates = app_bphrm.readCookie('affiliates');
+							var condisionando = app_bphrm.readCookie('condicionar');
+							if(affiliates === 'true' && condisionando === 'true'){
+								app_bphrm.deleteCookie('affiliates');
+								app_bphrm.deleteCookie('condicionar');
+								window.location.href = 'https://www.biopharmasci.com/affiliate_signup.asp';
+							}
+							}, 2000);
+						}
+						if(pat.indexOf('AccountSettings.asp?NewSignup=Y&modwhat=change_s&ReturnTo=') > 0){
+							app_bphrm.createCpokie('session','y','365');
+						}
+						if(pat.indexOf('affiliate_signup.asp') > 0){
+							app_bphrm.createCpokie('condicionar','true','365');
+							app_bphrm.createCpokie('session','y','365');
+							var redi = app_bphrm.readCookie('redirection');
+							if(redi !== 'empty'){
+								app_bphrm.deleteCookie('redirection');
+							}
+						}
+						setTimeout(function(){
+							if(pat.indexOf('AccountSettings.asp?NewSignup=Y&modwhat=change_s&ReturnTo=') > 0){
+							}else{
+								var redirection = app_bphrm.readCookie('redirection');
+									if( redirection === 'true'){
+										window.location.href = 'https://www.biopharmasci.com/affiliate_signup.asp';
+									}	
+							}
+						}, 2000);
+						var sesion = app_bphrm.readCookie('session');
+                        if(sesion === 'empty'){
+							
+						}else{
+							if(sesion === 'y'){
                             var leer = app_bphrm.readCookie('Emailapolo');
                             if(leer === 'empty'){
                                 var pathname = window.location.href;
@@ -43,7 +83,12 @@
                                         app_bphrm.DataApolo(email);
                                     });
                                 }else{
-                                     window.location.href = 'https://www.biopharmasci.com/myaccount.asp';
+									var pato = window.location.href;
+									if(pat.indexOf('AccountSettings.asp?NewSignup=Y&modwhat=change_s&ReturnTo=') > 0){
+										app_bphrm.createCpokie('redirection','true','365');
+									}else{
+										window.location.href = 'https://www.biopharmasci.com/myaccount.asp';
+									}
                                 }
                             }else{
            		                var pathname = window.location.href; 
@@ -53,8 +98,11 @@
       		     			    }
                             }
                             $("#show-data-apolomultimedia").show();
-           	            }
+           	            }else{
+							app_bphrm.deleteCookie('Emailapolo');
+						}
                     }
+					}
                 });
                 var pathname = window.location.href; 
                 if(pathname.indexOf('/affiliate_signup.asp') > 0){ 
@@ -240,14 +288,19 @@
                 });
             },
             secform:function(){
+                var taxes = this.getShippingAndTax();
+                
                 var prods = app_bphrm.cartjs.products; 
                 //console.log(prods);
                 var f='<form id="frm-bphrm" method="post" action="'+URI.chk+'" target="_top">';
                 for(i in prods){
-                    f += '<input type="text" name="product['+prods[i].code+']" value="'+prods[i].name+'|'+prods[i].qty+'|'+prods[i].price+'|'+prods[i].img+'" />';
+                    f += '<input type="text" name="product['+prods[i].code+']" value="'+prods[i].id+'|'+prods[i].name+'|'+prods[i].qty+'|'+prods[i].price+'|'+prods[i].img+'" />';
                 }
                 f +='<input type="hidden" name="action" value="chk" />';
                 f += '<input type="hidden" name="email" value="'+app_bphrm.cartjs.email+'" />';
+                f +='<input type="hidden" name="tax" value="'+taxes.tax+'" />';
+                f +='<input type="hidden" name="shipp_value" value="'+taxes.shipping.value+'" />';
+                f +='<input type="hidden" name="shipp_text" value="'+taxes.shipping.text+'" />';
                 f +='</form>';
                 if($(document).find('#frm-bphrm-content').length > 0 ){
                     //console.log('exist');
@@ -257,6 +310,23 @@
                     $('body').append('<div id="frm-bphrm-content">'+f+'</div>');
                 }
                 $('#frm-bphrm').submit();
+            },
+            getShippingAndTax:function(){
+                var nums = [0,102];
+                var response = {"shipping":{"value":0,"text":""},"tax":0};
+                var tax = ($('.v65-cart-tax-cell').find('b').text()).replace(/[^0-9.,]/mg,'');
+                if(/[0-9.,]+/.test(tax)){
+                    response.tax = tax;
+                }
+                //console.log($('select[name="ShippingSpeedChoice"]'));
+                var shippRateVal = $('select[name="ShippingSpeedChoice"]').find('option:selected').val();
+                var shippRateText = ($('select[name="ShippingSpeedChoice"]').find('option:selected').text()).replace(/[^0-9.,\$]/mg,'').replace(/.*\$([0-9.,]+?)$/mg,'$1');
+                console.log(shippRateVal);
+                if(nums.indexOf(shippRateVal) < 0){
+                    response.shipping.value = shippRateVal;
+                    response.shipping.text = shippRateText;
+                }
+                return response;
             },
             cartapiContent:function(callback){
                 app_bphrm.cartjs.prodsToArray();
@@ -387,20 +457,20 @@
             },
             cartapi:function(){
                 //CART VARIABLES
-                //console.log(_path);
-                //ajax cart
-                
                 // -- PRODUCT PAGE --
                 app_bphrm.cartjs.CARTNAME = CARTNAME;
-                /*
+                /* ***
                 var _class = "div[class*='-ap']";
                 if($(_class).length > 0){
                     //console.log($(_class).length);
                     app_bphrm.cartapiBuild();
                 }
-                */
+                *** */
                 //native cart page
                 $(document).on('click','#bphm-cart-chk',function(){
+                    //var taxes = app_bphrm.getShippingAndTax();
+                    //console.log(taxes);
+                    //return false;
                     app_bphrm.isLogged(function(resp){
                         if(resp.IsLoggedIn == true){
                             var liam = app_bphrm.readCookie('Emailapolo');
@@ -458,40 +528,54 @@
             mapVlsnCart:function(){
                 var __={
                     cart:{Products:[]},
-                    itemTypes:{recurr:0,other:0},
+                    itemTypes:{recurr:0,other:0,same:0},
+                    types:{recurring:0,bimonthly:0,quarterly:0,count:0},//['recurring','bi-monthly','quarterly']
                     onlyNumbers:function(n){
                         return n.replace(/[^0-9.,]/,'');
                     },
                     checkConditions:function(product){
                         var _name = (product.ProductName).toLowerCase();
                         //console.log(_name+' - '+conditions+' '+conditions.indexOf(_name));
-                        var result = conditions.map(function(str){
+                        var result = 0;
+                        for(i in conditions){
+                            var str = conditions[i];
                             if(_name.indexOf(str) > -1){
-                                return 1;
-                            }else{
-                                return 0;
+                                switch(str){
+                                    case 'bi-monthly': __.types.bimonthly += 1; __.types.count +=1; break;
+                                    case 'quarterly':  __.types.quarterly += 1; __.types.count +=1; break;
+                                    case 'recurring':  __.types.recurring += 1; __.types.count +=1; break;
+                                }
+                                result = 1; break;
                             }
-                        });
+                        }
                         //console.log(result);
-                        if(result.indexOf(1) > -1){
+                        if(result == 1){
                             __.itemTypes.recurr +=1;
                             return true;
                         }else{
                             __.itemTypes.other +=1;
                             return false;
                         }
+                        //filter condition
+                    },
+                    isSameCondition:function(){
+                        for(i in __.types){
+                            if(parseInt(__.types[i]) == parseInt(__.types.count) && i != 'count'){
+                                return true
+                            }
+                        }
+                        return false;
                     },
                     gotoCheckout:function(){
                         //<input type="submit" id="" name="btn_checkout_guest" value="Proceed To Checkout" class="btn_checkout_guest btn btn-primary btn-lg btn_checkout_guest">
                         //$(BTNCHECKOUT).attr('type','button');//CHANGE TYPE
-                        $(BTNCHECKOUT).after('<br /><small>Recurring products</small><input type="button" id="bphm-cart-chk" style="background: #222 none repeat scroll 0 0; border: medium none; bottom: 0; color: #555; position: absolute; right: 0;" value="Recurring Checkout"/>');
-                        //console.log(this.itemTypes);
-                        //console.log(this.cart);
+                        $(BTNCHECKOUT).after('<input type="button" id="bphm-cart-chk" class="btn_checkout_guest btn btn-primary btn-lg btn_checkout_guest"   value="Proceed To Checkout"/><br /><small>Recurring products</small>');//style="background: #222 none repeat scroll 0 0; border: medium none; bottom: 0; color: #555; position: absolute; right: 0;"
+                        $(BTNCHECKOUT).remove();
                         app_bphrm.cartjs.products = [];
                         app_bphrm.cartjs.cartTotals = this.cart.Totals;
                         if((this.cart.Products).length > 0){
                             for(i in this.cart.Products){
-                                app_bphrm.cartjs.products.push({code:this.cart.Products[i].ProductCode,name:this.cart.Products[i].ProductName,qty:this.cart.Products[i].Quantity,price:__.onlyNumbers(this.cart.Products[i].ProductPrice),img:this.cart.Products[i].ImageSource});
+                                app_bphrm.cartjs.products.push({id:this.cart.Products[i].ProductID,code:this.cart.Products[i].ProductCode,name:this.cart.Products[i].ProductName,qty:this.cart.Products[i].Quantity,price:__.onlyNumbers(this.cart.Products[i].ProductPrice),img:this.cart.Products[i].ImageSource});
                             }
                             //console.log(app_bphrm.cartjs.products);
                         }
@@ -503,6 +587,7 @@
                     var quantityTotal = 0;
                     //validate products
                     var isAllRecurr = true;
+                    
                     __.cart = data;
                     $.each(data.Products, function (key, val) {
                         if (val.IsProduct === 'Y') {
@@ -512,14 +597,27 @@
                             if(!__.checkConditions(val)){ isAllRecurr=false; }
                             quantityTotal += parseInt(val.Quantity);
                         }
+                       
                     });
+                    
                     quantityTotal = quantityTotal || '0';
                     //console.log(isAllRecurr);
+                    
+                    console.log(__.types);
+                    //IS SAME CONDITION
+                    var isSameCondition = __.isSameCondition();
+                    //console.log('samecondition '+isSameCondition);
                     if(__.itemTypes.recurr > 0 && __.itemTypes.other == 0){
-                        __.gotoCheckout(data);
+                        if(isSameCondition == false){
+                            $(BTNCHECKOUT).hide().after('<div class="col-md-6 col-md-offset-6 alert alert-warning text-center">Product recurring intervals must be the same</div>');
+                            $(BTNCHECKOUT).closest('form').attr('action','').attr('method','').attr('name','');
+                            $(BTNCHECKOUT).remove();
+                        }else{
+                            __.gotoCheckout(data);
+                        }
                     }else if(__.itemTypes.recurr > 0 && __.itemTypes.other > 0){
-                        console.log('Only you can choose recurring or not recurring products');
-                        $(BTNCHECKOUT).hide().after('<small>Only choose recurring or not recurring products</small>');
+                        //console.log('Only you can choose recurring or not recurring products');
+                        $(BTNCHECKOUT).hide().after('<div class="col-md-6 col-md-offset-6 alert alert-warning text-center">The cart can\'t be procesed because it has a recurring and no-recurring products.The recurring and non-recurring products can\'t be mixed.Please edit the cart to process the purchase</div>');
                         $(BTNCHECKOUT).closest('form').attr('action','').attr('method','').attr('name','');
                         $(BTNCHECKOUT).remove();
                     }else{
